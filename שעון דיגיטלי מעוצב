@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שעון דיגיטלי מעוצב</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            overflow: hidden;
+            color: white;
+        }
+
+        .clock-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 3rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .time-display {
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            background: linear-gradient(to bottom, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .date-display {
+            font-size: 1.5rem;
+            color: #60a5fa;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        .seconds {
+            font-size: 2.5rem;
+            color: #f43f5e;
+            margin-inline-start: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="clock-container">
+        <div id="clock" class="time-display">
+            <span id="hours-mins">00:00</span><span id="sec" class="seconds">00</span>
+        </div>
+        <div id="date" class="date-display">טוען תאריך...</div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            
+            // עיבוד זמן
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('hours-mins').textContent = `${hours}:${minutes}`;
+            document.getElementById('sec').textContent = seconds;
+
+            // עיבוד תאריך בעברית
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('he-IL', options);
+        }
+
+        // עדכון כל שנייה
+        setInterval(updateClock, 1000);
+        
+        // הפעלה ראשונית מיד
+        window.onload = updateClock;
+    </script>
+</body>
+</html>
