@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מחולל ציטוטים</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .quote-card {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-full text-center quote-card">
+        <div class="mb-6">
+            <svg class="w-12 h-12 text-indigo-500 mx-auto mb-4 opacity-20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H11.017C10.4647 12 10.017 11.5523 10.017 11V9C10.017 7.34315 11.3601 6 13.017 6H19.017C20.6739 6 22.017 7.34315 22.017 9V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM3.017 21L3.017 18C3.017 16.8954 3.91243 16 5.017 16H8.017C8.56928 16 9.017 15.5523 9.017 15V9C9.017 8.44772 8.56928 8 8.017 8H4.017C3.46472 8 3.017 8.44772 3.017 9V11C3.017 11.5523 2.56928 12 2.017 12H0.017C-0.535282 12 -1.017 11.5523 -1.017 11V9C-1.017 7.34315 0.326142 6 2.017 6H8.017C9.67386 6 11.017 7.34315 11.017 9V15C11.017 18.3137 8.33071 21 5.017 21H3.017Z" />
+            </svg>
+            <p id="quote-text" class="text-2xl font-medium text-gray-800 mb-4 leading-relaxed">
+                טוען ציטוט...
+            </p>
+            <span id="quote-author" class="text-indigo-600 font-semibold italic"></span>
+        </div>
+
+        <button onclick="generateQuote()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 active:scale-95 shadow-lg">
+            ציטוט חדש
+        </button>
+    </div>
+
+    <script>
+        const quotes = [
+            { text: "הדרך הטובה ביותר לחזות את העתיד היא להמציא אותו.", author: "אלן קיי" },
+            { text: "ההצלחה היא היכולת לעבור מכישלון לכישלון מבלי לאבד את ההתלהבות.", author: "וינסטון צ'רצ'יל" },
+            { text: "אל תספור את הימים, גרום לימים להיספר.", author: "מוחמד עלי" },
+            { text: "הכל אפשרי עבור מי שמאמין.", author: "אלמוני" },
+            { text: "הזמן שלכם מוגבל, אל תבזבזו אותו בלחיות חיים של מישהו אחר.", author: "סטיב ג'ובס" },
+            { text: "יצירתיות היא אינטליגנציה שיש בה כיף.", author: "אלברט איינשטיין" }
+        ];
+
+        function generateQuote() {
+            const textElement = document.getElementById('quote-text');
+            const authorElement = document.getElementById('quote-author');
+            const card = document.querySelector('.quote-card');
+
+            // אפקט פייד-אאוט קטן
+            textElement.style.opacity = 0;
+            authorElement.style.opacity = 0;
+
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                const randomQuote = quotes[randomIndex];
+
+                textElement.innerText = `"${randomQuote.text}"`;
+                authorElement.innerText = `- ${randomQuote.author}`;
+
+                // החזרת השקיפות
+                textElement.style.opacity = 1;
+                authorElement.style.opacity = 1;
+            }, 200);
+        }
+
+        // טעינת ציטוט ראשוני
+        window.onload = generateQuote;
+    </script>
+</body>
+</html>
